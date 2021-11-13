@@ -74,7 +74,7 @@ public class EventController {
         try{
             Event dbEvent = eventService.getEventById(eventId);
 
-            if (event == null)
+            if (dbEvent == null)
                 return new ResponseEntity<Object>("Event not found!", HttpStatus.NOT_FOUND);
 
             ObjectInitializer<Event> init = new ObjectInitializer<>(event, dbEvent);
