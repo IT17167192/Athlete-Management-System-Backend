@@ -1,6 +1,5 @@
 package com.olympic.athletemanagementsystem.athlete.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.olympic.athletemanagementsystem.common.entity.Gender;
 import com.olympic.athletemanagementsystem.event.entity.Event;
@@ -34,10 +33,12 @@ public class Athlete {
     private String firstName;
     private String lastName;
     private String country;
-    private String image;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] image;
     private Date dob;
 
     //relationship section
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY

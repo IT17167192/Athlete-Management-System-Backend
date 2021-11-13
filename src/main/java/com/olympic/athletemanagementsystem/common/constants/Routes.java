@@ -7,8 +7,10 @@ public class Routes {
 
     //Athlete Routes
     public static final String API_ATHLETE = "/api/athletes";
+    public static final String API_ATHLETE_UPLOAD_IMAGE = "/uploadImage/{athleteId}";
     public static final String API_ATHLETE_BY_EVENT_ENABLED = "/event";
-    public static final String API_ATHLETE_BY_GENDER = "/gender/{genderId}";
+    public static final String API_SEARCH_ATHLETE_BY_GENDER = "/search/gender/{genderId}";
+    public static final String API_SEARCH_ATHLETE_BY_NAMES = "/search/names";
     public static final String API_ATHLETE_BY_ID = "/{athleteId}";
 
     //Event category Routes
