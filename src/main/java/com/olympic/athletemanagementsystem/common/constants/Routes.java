@@ -25,4 +25,5 @@ public class Routes {
     //Result Routes
     public static final String API_RESULT = "/api/results";
     public static final String API_RESULT_BY_ID = "/{resultId}";
+    public static final String API_ATHLETE_RESULT = "/athlete";
 }

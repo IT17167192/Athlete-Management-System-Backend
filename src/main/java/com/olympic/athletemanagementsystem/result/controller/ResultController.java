@@ -1,6 +1,7 @@
 package com.olympic.athletemanagementsystem.result.controller;
 
 import com.olympic.athletemanagementsystem.common.util.ObjectInitializer;
+import com.olympic.athletemanagementsystem.result.dto.AthleteResultsDTO;
 import com.olympic.athletemanagementsystem.result.entity.Result;
 import com.olympic.athletemanagementsystem.result.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,17 @@ public class ResultController {
     public ResponseEntity<?> saveResult(@RequestBody Result result){
         try{
             return new ResponseEntity<Object>(resultService.addResult(result), HttpStatus.OK);
+        }catch (Exception e){
+            log.log(Level.SEVERE, e.getMessage());
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(API_ATHLETE_RESULT)
+    public ResponseEntity<?> saveAthleteResults(@RequestBody AthleteResultsDTO athleteResultsDTO){
+        try{
+            return new ResponseEntity<Object>(resultService.addAthleteResults(athleteResultsDTO.getAthleteId(),
+                    athleteResultsDTO.getResultId()) == 1 ? "Result added successfully": "Error occurred!", HttpStatus.OK);
         }catch (Exception e){
             log.log(Level.SEVERE, e.getMessage());
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

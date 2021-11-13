@@ -33,4 +33,8 @@ public class ResultService {
         resultRepository.deleteById(resultId);
         return true;
     }
+
+    public int addAthleteResults(Long athleteId, Long resultId){
+        return resultRepository.addAthleteResults(athleteId, resultId);
+    }
 }
