@@ -3,7 +3,6 @@ package com.olympic.athletemanagementsystem.athlete.controller;
 import com.olympic.athletemanagementsystem.athlete.entity.Athlete;
 import com.olympic.athletemanagementsystem.athlete.service.AthleteService;
 import com.olympic.athletemanagementsystem.common.util.ObjectInitializer;
-import com.olympic.athletemanagementsystem.event.entity.EventCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
