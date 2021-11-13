@@ -55,7 +55,7 @@ public class ResultController {
     }
 
     @GetMapping(API_RESULT_BY_ID)
-    public ResponseEntity<?> getAllResults(Long resultId){
+    public ResponseEntity<?> getResultById(@PathVariable Long resultId){
         try{
             Result result = resultService.getResultById(resultId);
 
