@@ -1,6 +1,7 @@
 package com.olympic.athletemanagementsystem.athlete.repository;
 
 import com.olympic.athletemanagementsystem.athlete.dto.AthleteDTO;
+import com.olympic.athletemanagementsystem.athlete.dto.ImageOnlyDTO;
 import com.olympic.athletemanagementsystem.athlete.entity.Athlete;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +20,5 @@ public interface AthleteRepository extends JpaRepository<Athlete, Long> {
     )
     Page<AthleteDTO> findAthleteByEventsEnabled(Pageable pageable, @Param("enabled") boolean enabled);
     Page<AthleteDTO> findAthleteByFirstNameContainsAndLastNameContains(Pageable pageable, String firstName, String lastName);
+    ImageOnlyDTO findAthleteByAthleteIdAndFirstNameContains(Long athleteId, String firstName);
 }

@@ -134,4 +134,18 @@ public class AthleteController {
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping(API_ATHLETE_GET_IMAGE)
+    public ResponseEntity<?> getAthleteImage(@PathVariable Long athleteId) {
+        try {
+            if (athleteService.getAthleteById(athleteId) == null)
+                return new ResponseEntity<Object>("Athlete not found!", HttpStatus.NOT_FOUND);
+
+            byte[] encode = java.util.Base64.getEncoder().encode(athleteService.getImageByAthleteId(athleteId).getImage());
+            return new ResponseEntity<Object>(new String(encode, "UTF-8"), HttpStatus.OK);
+        } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

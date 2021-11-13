@@ -1,6 +1,7 @@
 package com.olympic.athletemanagementsystem.athlete.service;
 
 import com.olympic.athletemanagementsystem.athlete.dto.AthleteDTO;
+import com.olympic.athletemanagementsystem.athlete.dto.ImageOnlyDTO;
 import com.olympic.athletemanagementsystem.athlete.entity.Athlete;
 import com.olympic.athletemanagementsystem.athlete.repository.AthleteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,9 @@ public class AthleteService {
 
     public Page<AthleteDTO> searchAthletesByFirstNameAndLastName(Pageable pageable, String firstName, String lastName){
         return athleteRepository.findAthleteByFirstNameContainsAndLastNameContains(pageable, firstName, lastName);
+    }
+
+    public ImageOnlyDTO getImageByAthleteId(Long athleteId){
+        return athleteRepository.findAthleteByAthleteIdAndFirstNameContains(athleteId, "");
     }
 }
