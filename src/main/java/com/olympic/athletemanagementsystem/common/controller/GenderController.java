@@ -2,9 +2,8 @@ package com.olympic.athletemanagementsystem.common.controller;
 
 import com.olympic.athletemanagementsystem.common.entity.Gender;
 import com.olympic.athletemanagementsystem.common.service.GenderService;
+import com.olympic.athletemanagementsystem.common.util.ObjectInitializer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,11 +42,29 @@ public class GenderController {
         }
     }
 
-    @GetMapping(API_GENDER_BY_ID)
-    public ResponseEntity<?> getGenderById(@PathVariable Long genderId){
+    @DeleteMapping(API_GENDER_BY_ID)
+    public ResponseEntity<?> deleteGenderById(@PathVariable Long genderId){
         try{
-            return new ResponseEntity<Object>(genderService.getGenderById(genderId), HttpStatus.OK);
+            return new ResponseEntity<Object>(genderService.deleteGenderById(genderId), HttpStatus.OK);
         } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping(API_GENDER_BY_ID)
+    public ResponseEntity<?> updateGenderById(@PathVariable Long genderId, @RequestBody Gender gender){
+        try{
+            Gender dbGender = genderService.getGenderById(genderId);
+
+            if (dbGender == null)
+                return new ResponseEntity<Object>("Gender not found!", HttpStatus.NOT_FOUND);
+
+            ObjectInitializer<Gender> init = new ObjectInitializer<>(gender, dbGender);
+            dbGender = init.updateObject();
+
+            return new ResponseEntity<Object>(genderService.saveGender(dbGender), HttpStatus.OK);
+        }catch (Exception e){
             log.log(Level.SEVERE, e.getMessage());
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

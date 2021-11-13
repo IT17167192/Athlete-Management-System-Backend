@@ -55,7 +55,7 @@ public class EventController {
         }
     }
 
-    @GetMapping(API_EVENT_BY_ID)
+    @DeleteMapping(API_EVENT_BY_ID)
     public ResponseEntity<?> deleteEventByEventId(@PathVariable Long eventId){
         try{
             Event event = eventService.getEventById(eventId);

@@ -1,13 +1,11 @@
 package com.olympic.athletemanagementsystem.event.controller;
 
 import com.olympic.athletemanagementsystem.common.util.ObjectInitializer;
-import com.olympic.athletemanagementsystem.event.entity.Event;
 import com.olympic.athletemanagementsystem.event.entity.EventCategory;
 import com.olympic.athletemanagementsystem.event.service.EventCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +45,7 @@ public class EventCategoryController {
         }
     }
 
-    @GetMapping(API_CATEGORY_BY_ID)
+    @DeleteMapping(API_CATEGORY_BY_ID)
     public ResponseEntity<?> deleteCategoryByEventId(@PathVariable Long categoryId){
         try{
             EventCategory eventCategory = eventCategoryService.getCategoryById(categoryId);
