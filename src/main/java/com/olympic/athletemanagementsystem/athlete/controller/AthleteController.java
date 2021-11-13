@@ -5,6 +5,7 @@ import com.olympic.athletemanagementsystem.athlete.service.AthleteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,9 +59,18 @@ public class AthleteController {
 
     @GetMapping(API_ATHLETE_BY_EVENT_ENABLED)
     public ResponseEntity<?> getAllAthletesByGenderIdAndEventEnabled(@RequestParam int page,
-                                                      @RequestParam int limit, @RequestParam boolean enabled){
+                                                                     @RequestParam int limit,
+                                                                     @RequestParam String sortBy,
+                                                                     @RequestParam String orderBy,
+                                                                     @RequestParam boolean enabled){
         try{
-            Pageable pageObj = PageRequest.of(page, limit);
+            Pageable pageObj;
+
+            if (orderBy.equals("desc"))
+                pageObj = PageRequest.of(page, limit, Sort.by(sortBy).descending());
+            else
+                pageObj = PageRequest.of(page, limit, Sort.by(sortBy).ascending());
+
             return new ResponseEntity<Object>(athleteService.getAllAthletesByEventEnabled(pageObj, enabled), HttpStatus.OK);
         } catch (Exception e) {
             log.log(Level.SEVERE, e.getMessage());
