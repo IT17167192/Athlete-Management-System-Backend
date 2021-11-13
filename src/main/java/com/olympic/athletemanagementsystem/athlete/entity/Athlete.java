@@ -3,6 +3,7 @@ package com.olympic.athletemanagementsystem.athlete.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.olympic.athletemanagementsystem.common.entity.Gender;
 import com.olympic.athletemanagementsystem.event.entity.Event;
+import com.olympic.athletemanagementsystem.result.entity.Result;
 import lombok.*;
 import javax.validation.constraints.NotNull;
 
@@ -55,6 +56,24 @@ public class Athlete {
             )
     )
     private List<Event> events;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinTable(
+            name = "athlete_results",
+            joinColumns = @JoinColumn(
+                    name = "athlete_id",
+                    referencedColumnName = "athleteId"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "result_id",
+                    referencedColumnName = "resultId"
+            )
+    )
+    private List<Result> results;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.MERGE)

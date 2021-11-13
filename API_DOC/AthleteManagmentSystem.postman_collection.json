@@ -1,0 +1,456 @@
+{
+	"info": {
+		"_postman_id": "746a58b2-c52f-488b-814e-4c10754ee317",
+		"name": "AthleteManagmentSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Save Gender",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"Other\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/gender",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"gender"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all genders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/gender",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"gender"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get gender by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/gender/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"gender",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Athlete with events",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Mike\",\r\n    \"lastName\": \"Tyson\",\r\n    \"country\": \"America\",\r\n    \"image\": \"\",\r\n    \"dob\": \"1975-10-01\",\r\n    \"gender\": {\r\n        \"id\": 1\r\n    },\r\n    \"events\": [\r\n        {\r\n            \"name\": \"Heavy Weight Men\",\r\n            \"type\": \"Male\",\r\n            \"date\": \"2021-11-11\",\r\n            \"time\": \"21:00:00\",\r\n            \"location\": \"Indoor St 1\",\r\n            \"enabled\": true,\r\n            \"eventCategory\": {\r\n                \"categoryId\": 3\r\n            }\r\n        },\r\n        {\r\n            \"name\": \"Open Boxing Men\",\r\n            \"type\": \"Male\",\r\n            \"date\": \"2021-11-13\",\r\n            \"time\": \"10:00:00\",\r\n            \"location\": \"Indoor St 1\",\r\n            \"enabled\": true,\r\n            \"eventCategory\": {\r\n                \"categoryId\": 3\r\n            }\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/athletes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"athletes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save category",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"Boxing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/categories",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all athletes with pagination",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/athletes?page=0&limit=1&sortBy=firstName&orderBy=desc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"athletes"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						},
+						{
+							"key": "sortBy",
+							"value": "firstName"
+						},
+						{
+							"key": "orderBy",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get athletes by gender",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/athletes/search/gender/1?page=0&limit=1&sortBy=firstName&orderBy=desc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"athletes",
+						"search",
+						"gender",
+						"1"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						},
+						{
+							"key": "sortBy",
+							"value": "firstName"
+						},
+						{
+							"key": "orderBy",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get athletes where events enabled or disabled",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/athletes/event?page=0&limit=2&sortBy=firstName&orderBy=desc&enabled=true",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"athletes",
+						"event"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "sortBy",
+							"value": "firstName"
+						},
+						{
+							"key": "orderBy",
+							"value": "desc"
+						},
+						{
+							"key": "enabled",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all events with event enabled",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/events?page=0&limit=10&sortBy=date&orderBy=asc&enabled=true",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "date"
+						},
+						{
+							"key": "orderBy",
+							"value": "asc"
+						},
+						{
+							"key": "enabled",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Swimming Relay Men\",\r\n        \"type\": \"Female\",\r\n        \"date\": \"2021-11-09\",\r\n        \"time\": \"08:15:00\",\r\n        \"location\": \"Swimming Pool Area\",\r\n        \"enabled\": true,\r\n        \"eventCategory\": {\r\n            \"categoryId\": 3\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/events",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Event",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eventId\": 7,\r\n    \"location\": \"Swimming Pool Area 2\",\r\n    \"enabled\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/events/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/categories?page=0&limit=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categories"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search athlete by first and lastname",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/athletes/search/names?firstName=Mike&lastName=ty&page=0&limit=10&sortBy=firstName&orderBy=desc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"athletes",
+						"search",
+						"names"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Mike"
+						},
+						{
+							"key": "lastName",
+							"value": "ty"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "firstName"
+						},
+						{
+							"key": "orderBy",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Image",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/User/OneDrive/Desktop/mike.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/athletes/uploadImage/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"athletes",
+						"uploadImage",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

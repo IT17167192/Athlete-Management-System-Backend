@@ -3,12 +3,16 @@ package com.olympic.athletemanagementsystem.event.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.olympic.athletemanagementsystem.athlete.entity.Athlete;
+import com.olympic.athletemanagementsystem.result.entity.Result;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -42,7 +46,13 @@ public class Event {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Athlete> athletes;
+
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.MERGE)
     private EventCategory eventCategory;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Set<Result> results;
 }

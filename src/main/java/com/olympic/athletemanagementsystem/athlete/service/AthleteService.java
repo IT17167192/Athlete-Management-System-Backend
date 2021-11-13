@@ -9,11 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
+import javax.transaction.Transactional;
+
 @Service
 public class AthleteService {
     @Autowired
     private AthleteRepository athleteRepository;
 
+    @Transactional
     public Athlete saveAthlete(Athlete athlete) {
         return athleteRepository.save(athlete);
     }
@@ -40,5 +43,11 @@ public class AthleteService {
 
     public ImageOnlyDTO getImageByAthleteId(Long athleteId){
         return athleteRepository.findAthleteByAthleteIdAndFirstNameContains(athleteId, "");
+    }
+
+    @Transactional
+    public boolean deleteAthleteById(Long athleteId){
+        athleteRepository.deleteById(athleteId);
+        return true;
     }
 }

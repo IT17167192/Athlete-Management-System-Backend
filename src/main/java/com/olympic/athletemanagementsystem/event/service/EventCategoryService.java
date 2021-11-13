@@ -7,12 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class EventCategoryService {
     @Autowired
     private EventCategoryRepository eventCategoryRepository;
 
-
+    @Transactional
     public EventCategory saveEventCategory(EventCategory eventCategory){
         return eventCategoryRepository.save(eventCategory);
     }
@@ -25,6 +27,7 @@ public class EventCategoryService {
         return eventCategoryRepository.findAll(pageable);
     }
 
+    @Transactional
     public boolean deleteCategoryById(Long categoryId){
         eventCategoryRepository.deleteById(categoryId);
         return true;

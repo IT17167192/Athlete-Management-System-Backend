@@ -58,11 +58,10 @@ public class EventController {
     @DeleteMapping(API_EVENT_BY_ID)
     public ResponseEntity<?> deleteEventByEventId(@PathVariable Long eventId){
         try{
-            Event event = eventService.getEventById(eventId);
-            if (event == null)
+            if (eventService.getEventById(eventId) == null)
                 return new ResponseEntity<Object>("Event not found!", HttpStatus.NOT_FOUND);
 
-            return new ResponseEntity<Object>(event, HttpStatus.OK);
+            return new ResponseEntity<Object>(eventService.deleteEventById(eventId), HttpStatus.OK);
         }catch (Exception e){
             log.log(Level.SEVERE, e.getMessage());
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -7,15 +7,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    @Transactional
     public Event saveEvent(Event event){
         return eventRepository.save(event);
     }
 
+    @Transactional
     public boolean deleteEventById(Long eventId){
         eventRepository.deleteById(eventId);
         return true;

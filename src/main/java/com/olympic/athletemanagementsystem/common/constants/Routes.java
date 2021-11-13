@@ -18,7 +18,11 @@ public class Routes {
     public static final String API_CATEGORY = "/api/categories";
     public static final String API_CATEGORY_BY_ID = "/{categoryId}";
 
-    //Event category Routes
+    //Event Routes
     public static final String API_EVENT = "/api/events";
     public static final String API_EVENT_BY_ID = "/{eventId}";
+
+    //Result Routes
+    public static final String API_RESULT = "/api/results";
+    public static final String API_RESULT_BY_ID = "/{resultId}";
 }

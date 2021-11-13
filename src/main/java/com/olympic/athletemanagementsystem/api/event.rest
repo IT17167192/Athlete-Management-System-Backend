@@ -1,0 +1,19 @@
+
+###add event
+POST localhost:8080/api/events
+Content-Type: application/json
+
+{
+    "name": "Swimming 400m Male",
+        "type": "Male",
+        "date": "2021-11-30",
+        "time": "09:15:00",
+        "location": "Swimming Pool Area",
+        "enabled": true,
+        "eventCategory": {
+            "categoryId": 2
+        }
+}
+
+###get all events
+GET localhost:8080/api/events?page=0&limit=10&sortBy=date&orderBy=asc&enabled=true
