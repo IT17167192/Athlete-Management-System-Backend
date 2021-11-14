@@ -53,26 +53,6 @@
 			"response": []
 		},
 		{
-			"name": "Get gender by id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/gender/3",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"gender",
-						"3"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Save Athlete with events",
 			"request": {
 				"method": "POST",
@@ -123,43 +103,6 @@
 					"path": [
 						"api",
 						"categories"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get all athletes with pagination",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/athletes?page=0&limit=1&sortBy=firstName&orderBy=desc",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"athletes"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "0"
-						},
-						{
-							"key": "limit",
-							"value": "1"
-						},
-						{
-							"key": "sortBy",
-							"value": "firstName"
-						},
-						{
-							"key": "orderBy",
-							"value": "desc"
-						}
 					]
 				}
 			},
@@ -432,12 +375,12 @@
 						{
 							"key": "image",
 							"type": "file",
-							"src": "/C:/Users/User/OneDrive/Desktop/mike.jpg"
+							"src": "/C:/Users/User/OneDrive/Desktop/susanthika.jpeg"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/api/athletes/uploadImage/1",
+					"raw": "localhost:8080/api/athletes/uploadImage/2",
 					"host": [
 						"localhost"
 					],
@@ -446,7 +389,114 @@
 						"api",
 						"athletes",
 						"uploadImage",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get image by athlete id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/athletes/getImage/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"athletes",
+						"getImage",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Result",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"round\": \"Round 1\",\r\n    \"place\": \"1st Place\",\r\n    \"athletes\": [\r\n        {\r\n            \"athleteId\":  1\r\n        }\r\n    ],\r\n    \"event\": {\r\n        \"eventId\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/results",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"results"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save athlete results",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"athleteId\": 1,\r\n    \"resultId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/results/athlete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"results",
+						"athlete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save athlete events",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"athleteId\": 2,\r\n    \"eventId\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/athletes/events",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"athletes",
+						"events"
 					]
 				}
 			},
