@@ -13,6 +13,7 @@ public class Routes {
     public static final String API_SEARCH_ATHLETE_BY_GENDER = "/search/gender/{genderId}";
     public static final String API_SEARCH_ATHLETE_BY_NAMES = "/search/names";
     public static final String API_ATHLETE_BY_ID = "/{athleteId}";
+    public static final String API_ATHLETE_EVENTS = "/events";
 
     //Event category Routes
     public static final String API_CATEGORY = "/api/categories";
@@ -25,5 +26,5 @@ public class Routes {
     //Result Routes
     public static final String API_RESULT = "/api/results";
     public static final String API_RESULT_BY_ID = "/{resultId}";
-    public static final String API_ATHLETE_RESULT = "/athlete";
+    public static final String API_ATHLETE_RESULTS = "/athlete";
 }

@@ -1,8 +1,10 @@
 package com.olympic.athletemanagementsystem.athlete.controller;
 
+import com.olympic.athletemanagementsystem.athlete.dto.AthleteEventDTO;
 import com.olympic.athletemanagementsystem.athlete.entity.Athlete;
 import com.olympic.athletemanagementsystem.athlete.service.AthleteService;
 import com.olympic.athletemanagementsystem.common.util.ObjectInitializer;
+import com.olympic.athletemanagementsystem.result.dto.AthleteResultsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,25 +32,6 @@ public class AthleteController {
         try{
             return new ResponseEntity<Object>(athleteService.saveAthlete(athlete), HttpStatus.OK);
         }catch (Exception e){
-            log.log(Level.SEVERE, e.getMessage());
-            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @GetMapping
-    public ResponseEntity<?> getAllAthletes(@RequestParam int page,
-                                            @RequestParam int limit,
-                                            @RequestParam String sortBy,
-                                            @RequestParam String orderBy){
-        try{
-            Pageable pageObj;
-            if (orderBy.equals("desc"))
-                pageObj = PageRequest.of(page, limit, Sort.by(sortBy).descending());
-            else
-                pageObj = PageRequest.of(page, limit, Sort.by(sortBy).ascending());
-
-            return new ResponseEntity<Object>(athleteService.getAllAthletes(pageObj), HttpStatus.OK);
-        } catch (Exception e) {
             log.log(Level.SEVERE, e.getMessage());
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -143,6 +126,35 @@ public class AthleteController {
             byte[] encode = java.util.Base64.getEncoder().encode(athleteService.getImageByAthleteId(athleteId).getImage());
             return new ResponseEntity<Object>(new String(encode, "UTF-8"), HttpStatus.OK);
         } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping(API_ATHLETE_BY_ID)
+    public ResponseEntity<?> updateEventById(@PathVariable Long athleteId, @RequestBody Athlete athlete){
+        try{
+            Athlete dbAthlete = athleteService.getAthleteById(athleteId);
+
+            if (dbAthlete == null)
+                return new ResponseEntity<Object>("Athlete not found!", HttpStatus.NOT_FOUND);
+
+            ObjectInitializer<Athlete> init = new ObjectInitializer<>(athlete, dbAthlete);
+            dbAthlete = init.updateObject();
+
+            return new ResponseEntity<Object>(athleteService.saveAthlete(dbAthlete), HttpStatus.OK);
+        }catch (Exception e){
+            log.log(Level.SEVERE, e.getMessage());
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(API_ATHLETE_EVENTS)
+    public ResponseEntity<?> saveAthleteResults(@RequestBody AthleteEventDTO athleteEventDTO){
+        try{
+            return new ResponseEntity<Object>(athleteService.addAthleteEvent(athleteEventDTO.getAthleteId(),
+                    athleteEventDTO.getEventId()) == 1 ? "Athlete event added successfully": "Error occurred!", HttpStatus.OK);
+        }catch (Exception e){
             log.log(Level.SEVERE, e.getMessage());
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

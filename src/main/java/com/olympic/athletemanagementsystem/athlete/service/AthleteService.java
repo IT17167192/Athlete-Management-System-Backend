@@ -1,6 +1,7 @@
 package com.olympic.athletemanagementsystem.athlete.service;
 
 import com.olympic.athletemanagementsystem.athlete.dto.AthleteDTO;
+import com.olympic.athletemanagementsystem.athlete.dto.AthleteEventsOnlyDTO;
 import com.olympic.athletemanagementsystem.athlete.dto.ImageOnlyDTO;
 import com.olympic.athletemanagementsystem.athlete.entity.Athlete;
 import com.olympic.athletemanagementsystem.athlete.repository.AthleteRepository;
@@ -29,7 +30,7 @@ public class AthleteService {
         return athleteRepository.findAthleteByGender_Id(pageable, genderId);
     }
 
-    public Page<AthleteDTO> getAllAthletesByEventEnabled(Pageable pageable, boolean enabled) {
+    public Page<AthleteEventsOnlyDTO> getAllAthletesByEventEnabled(Pageable pageable, boolean enabled) {
         return athleteRepository.findAthleteByEventsEnabled(pageable, enabled);
     }
 
@@ -49,5 +50,9 @@ public class AthleteService {
     public boolean deleteAthleteById(Long athleteId){
         athleteRepository.deleteById(athleteId);
         return true;
+    }
+
+    public int addAthleteEvent(Long athleteId, Long eventId){
+        return athleteRepository.addAthleteEvent(athleteId, eventId);
     }
 }

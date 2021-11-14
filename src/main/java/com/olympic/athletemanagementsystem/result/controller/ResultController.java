@@ -35,7 +35,7 @@ public class ResultController {
         }
     }
 
-    @PostMapping(API_ATHLETE_RESULT)
+    @PostMapping(API_ATHLETE_RESULTS)
     public ResponseEntity<?> saveAthleteResults(@RequestBody AthleteResultsDTO athleteResultsDTO){
         try{
             return new ResponseEntity<Object>(resultService.addAthleteResults(athleteResultsDTO.getAthleteId(),
