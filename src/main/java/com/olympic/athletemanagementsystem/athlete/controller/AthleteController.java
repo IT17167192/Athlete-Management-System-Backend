@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -97,9 +98,27 @@ public class AthleteController {
         }
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> searchAthlete(@RequestParam Long eventId,
+                                                                     @RequestParam Long genderId,
+                                                                     @RequestParam String country,
+                                                                     @RequestParam String firstName){
+        try{
+            if(eventId==0){
+                return new ResponseEntity<Object>(athleteService.searchAthleteWithoutEvent(genderId, country, firstName), HttpStatus.OK);
+            }
+            else
+                return new ResponseEntity<Object>(athleteService.searchAthlete(eventId, genderId, country, firstName), HttpStatus.OK);
+        } catch (Exception e) {
+            log.log(Level.SEVERE, e.getMessage());
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PutMapping(API_ATHLETE_UPLOAD_IMAGE)
     public ResponseEntity<?> uploadImage(@PathVariable Long athleteId, @RequestParam("image") MultipartFile file) {
         try {
+            System.out.println(file);
             Athlete dbAthlete = athleteService.getAthleteById(athleteId);
 
             Athlete athlete = Athlete.builder().build();
@@ -150,13 +169,19 @@ public class AthleteController {
     }
 
     @PostMapping(API_ATHLETE_EVENTS)
-    public ResponseEntity<?> saveAthleteResults(@RequestBody AthleteEventDTO athleteEventDTO){
+    public ResponseEntity<?> saveAthleteEvents(@RequestBody List<AthleteEventDTO> athleteEventDTOS){
         try{
-            return new ResponseEntity<Object>(athleteService.addAthleteEvent(athleteEventDTO.getAthleteId(),
-                    athleteEventDTO.getEventId()) == 1 ? "Athlete event added successfully": "Error occurred!", HttpStatus.OK);
+            for (AthleteEventDTO athleteEventDTO : athleteEventDTOS){
+                System.out.println(athleteEventDTO.getAthleteId());
+                System.out.println(athleteEventDTO.getEventId());
+                athleteService.addAthleteEvent(athleteEventDTO.getAthleteId(), athleteEventDTO.getEventId());
+            }
+            return new ResponseEntity<Object>("Athlete event added successfully", HttpStatus.OK);
         }catch (Exception e){
             log.log(Level.SEVERE, e.getMessage());
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 }

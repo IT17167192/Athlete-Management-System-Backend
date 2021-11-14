@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 
 public interface AthleteRepository extends JpaRepository<Athlete, Long> {
@@ -25,6 +26,23 @@ public interface AthleteRepository extends JpaRepository<Athlete, Long> {
     Page<AthleteEventsOnlyDTO> findAthleteByEventsEnabled(Pageable pageable, @Param("enabled") boolean enabled);
     Page<AthleteDTO> findAthleteByFirstNameContainsAndLastNameContains(Pageable pageable, String firstName, String lastName);
     ImageOnlyDTO findAthleteByAthleteIdAndFirstNameContains(Long athleteId, String firstName);
+
+    @Query(
+            value = "FROM Athlete a JOIN FETCH a.events e JOIN FETCH a.gender g WHERE e.eventId = :eventId " +
+                    "AND g.id = :genderId AND a.country LIKE %:country% AND a.firstName LIKE %:firstName%"
+    )
+    List<Athlete> searchAthlete(@Param("eventId") Long eventId,
+                                            @Param("genderId") Long genderId,
+                                            @Param("country") String country,
+                                            @Param("firstName") String firstName);
+
+
+    @Query(
+            value = "FROM Athlete a JOIN FETCH a.events e JOIN FETCH a.gender g WHERE g.id = :genderId AND a.country LIKE %:country% AND a.firstName LIKE %:firstName%"
+    )
+    List<Athlete> searchAthleteWithoutEvents(@Param("genderId") Long genderId,
+                                             @Param("country") String country,
+                                             @Param("firstName") String firstName);
 
     @Transactional
     @Modifying

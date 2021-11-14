@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class AthleteService {
@@ -54,5 +55,13 @@ public class AthleteService {
 
     public int addAthleteEvent(Long athleteId, Long eventId){
         return athleteRepository.addAthleteEvent(athleteId, eventId);
+    }
+
+    public List<Athlete> searchAthlete(Long eventId, Long genderId, String country, String firstName){
+        return athleteRepository.searchAthlete(eventId, genderId, country, firstName);
+    }
+
+    public List<Athlete> searchAthleteWithoutEvent(Long genderId, String country, String firstName){
+        return athleteRepository.searchAthleteWithoutEvents(genderId, country, firstName);
     }
 }
