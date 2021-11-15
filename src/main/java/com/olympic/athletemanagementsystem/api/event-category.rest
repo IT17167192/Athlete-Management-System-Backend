@@ -1,0 +1,11 @@
+###save event category
+POST localhost:8080/api/categories
+Content-Type: application/json
+
+{
+  "type": "Running"
+}
+
+###get all event categories
+GET localhost:8080/api/categories?page=0&limit=10
+

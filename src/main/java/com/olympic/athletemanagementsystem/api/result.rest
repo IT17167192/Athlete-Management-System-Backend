@@ -1,0 +1,25 @@
+###save results
+POST localhost:8080/api/results
+Content-Type: application/json
+
+{
+  "round": "Final",
+  "place": "1st Place",
+  "athletes": [
+    {
+      "athleteId":  1
+    }
+  ],
+  "event": {
+    "eventId": 1
+  }
+}
+
+###save athlete results
+POST localhost:8080/api/results/athlete
+Content-Type: application/json
+
+{
+  "athleteId": 1,
+  "resultId": 1
+}
