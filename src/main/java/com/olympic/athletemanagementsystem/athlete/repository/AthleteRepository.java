@@ -54,4 +54,12 @@ public interface AthleteRepository extends JpaRepository<Athlete, Long> {
             nativeQuery = true
     )
     public int addAthleteEvent(@Param("athleteId") Long athleteId, @Param("eventId") Long eventId);
+
+    @Transactional
+    @Modifying
+    @Query(
+            value = "delete from athlete_events  where athlete_id = :athleteId",
+            nativeQuery = true
+    )
+    public int deleteAthleteEvent(@Param("athleteId") Long athleteId);
 }

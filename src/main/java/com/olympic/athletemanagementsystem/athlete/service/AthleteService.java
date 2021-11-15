@@ -64,4 +64,8 @@ public class AthleteService {
     public Page<Athlete> searchAthleteWithoutEvent(Pageable pageable, Long genderId, String country, String firstName){
         return athleteRepository.searchAthleteWithoutEvents(pageable, genderId, country, firstName);
     }
+
+    public int deleteAthleteEventsByAthleteId(Long athleteId){
+        return athleteRepository.deleteAthleteEvent(athleteId);
+    }
 }

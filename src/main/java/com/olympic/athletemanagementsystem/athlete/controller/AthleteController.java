@@ -4,7 +4,6 @@ import com.olympic.athletemanagementsystem.athlete.dto.AthleteEventDTO;
 import com.olympic.athletemanagementsystem.athlete.entity.Athlete;
 import com.olympic.athletemanagementsystem.athlete.service.AthleteService;
 import com.olympic.athletemanagementsystem.common.util.ObjectInitializer;
-import com.olympic.athletemanagementsystem.result.dto.AthleteResultsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -133,7 +133,10 @@ public class AthleteController {
             ObjectInitializer<Athlete> init = new ObjectInitializer<>(athlete, dbAthlete);
             dbAthlete = init.updateObject();
             return new ResponseEntity<Object>(athleteService.saveAthlete(dbAthlete), HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (IOException e) {
+            log.log(Level.SEVERE, e.getMessage());
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (Exception e) {
             log.log(Level.SEVERE, e.getMessage());
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -164,6 +167,9 @@ public class AthleteController {
             ObjectInitializer<Athlete> init = new ObjectInitializer<>(athlete, dbAthlete);
             dbAthlete = init.updateObject();
 
+            //delete athlete events
+            athleteService.deleteAthleteEventsByAthleteId(athleteId);
+
             return new ResponseEntity<Object>(athleteService.saveAthlete(dbAthlete), HttpStatus.OK);
         }catch (Exception e){
             log.log(Level.SEVERE, e.getMessage());
@@ -175,8 +181,6 @@ public class AthleteController {
     public ResponseEntity<?> saveAthleteEvents(@RequestBody List<AthleteEventDTO> athleteEventDTOS){
         try{
             for (AthleteEventDTO athleteEventDTO : athleteEventDTOS){
-                System.out.println(athleteEventDTO.getAthleteId());
-                System.out.println(athleteEventDTO.getEventId());
                 athleteService.addAthleteEvent(athleteEventDTO.getAthleteId(), athleteEventDTO.getEventId());
             }
             return new ResponseEntity<Object>("Athlete event added successfully", HttpStatus.OK);
@@ -185,6 +189,4 @@ public class AthleteController {
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }
