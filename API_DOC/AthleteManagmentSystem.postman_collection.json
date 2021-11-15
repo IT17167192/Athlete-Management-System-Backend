@@ -87,7 +87,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"type\": \"Boxing\"\r\n}",
+					"raw": "{\r\n    \"type\": \"Swimming\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -114,7 +114,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/athletes/search/gender/1?page=0&limit=1&sortBy=firstName&orderBy=desc",
+					"raw": "localhost:8080/api/athletes/search/gender/1?page=0&limit=10&sortBy=firstName&orderBy=desc",
 					"host": [
 						"localhost"
 					],
@@ -133,7 +133,7 @@
 						},
 						{
 							"key": "limit",
-							"value": "1"
+							"value": "10"
 						},
 						{
 							"key": "sortBy",
@@ -238,7 +238,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Swimming Relay Men\",\r\n        \"type\": \"Female\",\r\n        \"date\": \"2021-11-09\",\r\n        \"time\": \"08:15:00\",\r\n        \"location\": \"Swimming Pool Area\",\r\n        \"enabled\": true,\r\n        \"eventCategory\": {\r\n            \"categoryId\": 3\r\n        }\r\n}",
+					"raw": "{\r\n    \"name\": \"400m Female\",\r\n        \"type\": \"Female\",\r\n        \"date\": \"2021-11-19\",\r\n        \"time\": \"21:15:00\",\r\n        \"location\": \"St 1\",\r\n        \"enabled\": true,\r\n        \"eventCategory\": {\r\n            \"categoryId\": 2\r\n        }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -375,12 +375,12 @@
 						{
 							"key": "image",
 							"type": "file",
-							"src": "/C:/Users/User/OneDrive/Desktop/susanthika.jpeg"
+							"src": "/C:/Users/User/OneDrive/Desktop/usain.jpg"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/api/athletes/uploadImage/2",
+					"raw": "localhost:8080/api/athletes/uploadImage/8",
 					"host": [
 						"localhost"
 					],
@@ -389,7 +389,7 @@
 						"api",
 						"athletes",
 						"uploadImage",
-						"2"
+						"8"
 					]
 				}
 			},
@@ -401,7 +401,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/athletes/getImage/1",
+					"raw": "localhost:8080/api/athletes/getImage/3",
 					"host": [
 						"localhost"
 					],
@@ -410,7 +410,7 @@
 						"api",
 						"athletes",
 						"getImage",
-						"1"
+						"3"
 					]
 				}
 			},
@@ -423,7 +423,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"round\": \"Round 1\",\r\n    \"place\": \"1st Place\",\r\n    \"athletes\": [\r\n        {\r\n            \"athleteId\":  1\r\n        }\r\n    ],\r\n    \"event\": {\r\n        \"eventId\": 1\r\n    }\r\n}",
+					"raw": "{\r\n    \"round\": \"Final\",\r\n    \"place\": \"1st Place\",\r\n    \"athletes\": [\r\n        {\r\n            \"athleteId\":  1\r\n        }\r\n    ],\r\n    \"event\": {\r\n        \"eventId\": 1\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -451,7 +451,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"athleteId\": 1,\r\n    \"resultId\": 1\r\n}",
+					"raw": "{\r\n    \"athleteId\": 1,\r\n    \"resultId\": 4\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -497,6 +497,73 @@
 						"api",
 						"athletes",
 						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Athlete main search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/athletes/search?eventId=5&genderId=1&country=JM&firstName=Us",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"athletes",
+						"search"
+					],
+					"query": [
+						{
+							"key": "eventId",
+							"value": "5"
+						},
+						{
+							"key": "genderId",
+							"value": "1"
+						},
+						{
+							"key": "country",
+							"value": "JM"
+						},
+						{
+							"key": "firstName",
+							"value": "Us"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Athlete",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"athleteId\": 3,\r\n    \"firstName\": \"Mike\",\r\n    \"lastName\": \"Tyson\",\r\n    \"country\": \"America\",\r\n    \"image\": \"\",\r\n    \"dob\": \"1975-10-01\",\r\n    \"gender\": {\r\n        \"id\": 1,\r\n        \"type\": \"male\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/athletes/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"athletes",
+						"3"
 					]
 				}
 			},
