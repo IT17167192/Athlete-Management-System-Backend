@@ -189,4 +189,14 @@ public class AthleteController {
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping(API_ATHLETE_BY_ID)
+    public ResponseEntity<?> getAthleteById(@PathVariable Long athleteId){
+        try{
+            return new ResponseEntity<Object>(athleteService.getAthleteById(athleteId), HttpStatus.OK);
+        }catch (Exception e){
+            log.log(Level.SEVERE, e.getMessage());
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
