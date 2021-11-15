@@ -29,18 +29,21 @@ public interface AthleteRepository extends JpaRepository<Athlete, Long> {
 
     @Query(
             value = "FROM Athlete a JOIN FETCH a.events e JOIN FETCH a.gender g WHERE e.eventId = :eventId " +
+                    "AND g.id = :genderId AND a.country LIKE %:country% AND a.firstName LIKE %:firstName%",
+            countQuery = "select count(a) FROM Athlete a LEFT JOIN a.events e LEFT JOIN a.gender g WHERE e.eventId = :eventId " +
                     "AND g.id = :genderId AND a.country LIKE %:country% AND a.firstName LIKE %:firstName%"
     )
-    List<Athlete> searchAthlete(@Param("eventId") Long eventId,
+    Page<Athlete> searchAthlete(Pageable pageable, @Param("eventId") Long eventId,
                                             @Param("genderId") Long genderId,
                                             @Param("country") String country,
                                             @Param("firstName") String firstName);
 
 
     @Query(
-            value = "FROM Athlete a JOIN FETCH a.events e JOIN FETCH a.gender g WHERE g.id = :genderId AND a.country LIKE %:country% AND a.firstName LIKE %:firstName%"
+            value = "FROM Athlete a JOIN FETCH a.gender g WHERE g.id = :genderId AND a.country LIKE %:country% AND a.firstName LIKE %:firstName%",
+            countQuery = "select count(a) FROM Athlete a INNER JOIN a.gender g WHERE g.id = :genderId AND a.country LIKE %:country% AND a.firstName LIKE %:firstName%"
     )
-    List<Athlete> searchAthleteWithoutEvents(@Param("genderId") Long genderId,
+    Page<Athlete> searchAthleteWithoutEvents(Pageable pageable, @Param("genderId") Long genderId,
                                              @Param("country") String country,
                                              @Param("firstName") String firstName);
 

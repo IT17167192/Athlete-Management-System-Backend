@@ -99,16 +99,19 @@ public class AthleteController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchAthlete(@RequestParam Long eventId,
-                                                                     @RequestParam Long genderId,
-                                                                     @RequestParam String country,
-                                                                     @RequestParam String firstName){
+    public ResponseEntity<?> searchAthlete(@RequestParam int page,
+                                           @RequestParam int limit,
+                                           @RequestParam Long eventId,
+                                           @RequestParam Long genderId,
+                                           @RequestParam String country,
+                                           @RequestParam String firstName){
         try{
+            Pageable pageObj = PageRequest.of(page, limit);
             if(eventId==0){
-                return new ResponseEntity<Object>(athleteService.searchAthleteWithoutEvent(genderId, country, firstName), HttpStatus.OK);
+                return new ResponseEntity<Object>(athleteService.searchAthleteWithoutEvent(pageObj, genderId, country, firstName), HttpStatus.OK);
             }
             else
-                return new ResponseEntity<Object>(athleteService.searchAthlete(eventId, genderId, country, firstName), HttpStatus.OK);
+                return new ResponseEntity<Object>(athleteService.searchAthlete(pageObj, eventId, genderId, country, firstName), HttpStatus.OK);
         } catch (Exception e) {
             log.log(Level.SEVERE, e.getMessage());
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -151,7 +154,7 @@ public class AthleteController {
     }
 
     @PutMapping(API_ATHLETE_BY_ID)
-    public ResponseEntity<?> updateEventById(@PathVariable Long athleteId, @RequestBody Athlete athlete){
+    public ResponseEntity<?> updateAthleteById(@PathVariable Long athleteId, @RequestBody Athlete athlete){
         try{
             Athlete dbAthlete = athleteService.getAthleteById(athleteId);
 

@@ -57,11 +57,11 @@ public class AthleteService {
         return athleteRepository.addAthleteEvent(athleteId, eventId);
     }
 
-    public List<Athlete> searchAthlete(Long eventId, Long genderId, String country, String firstName){
-        return athleteRepository.searchAthlete(eventId, genderId, country, firstName);
+    public Page<Athlete> searchAthlete(Pageable pageable, Long eventId, Long genderId, String country, String firstName){
+        return athleteRepository.searchAthlete(pageable, eventId, genderId, country, firstName);
     }
 
-    public List<Athlete> searchAthleteWithoutEvent(Long genderId, String country, String firstName){
-        return athleteRepository.searchAthleteWithoutEvents(genderId, country, firstName);
+    public Page<Athlete> searchAthleteWithoutEvent(Pageable pageable, Long genderId, String country, String firstName){
+        return athleteRepository.searchAthleteWithoutEvents(pageable, genderId, country, firstName);
     }
 }
